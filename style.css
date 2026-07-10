@@ -55,6 +55,14 @@ hr {
     flex-direction: column;
 }
 
+.align-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
 .logo {
     word-break: keep-all;
     text-transform: uppercase;
@@ -73,6 +81,7 @@ hr {
 }
 
 #desktop-grid {
+    position: relative;
     flex: 1;
     min-width: 180px;
     display: grid;
