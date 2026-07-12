@@ -1,7 +1,5 @@
 const IS_DEV_MODE = true;
-// At the top of script.js
 let sugarMode = 'default';
-// Declare these globally
 const avatarImg = document.getElementById("sugar-avatar");
 const dialogueBox = document.getElementById("dialogue-box");
 const optionsBox = document.getElementById("options-box");
@@ -13,7 +11,7 @@ function setSugarMode(mode) {
 
     switch(sugarMode) {
         case 'busy':
-            avatarImg.src = "/assets/art/SUGAR_BUSY.png"; // Update your paths
+            avatarImg.src = "/assets/art/SUGAR_BUSY.png";
             dialogueBox.innerText = "Sugar is busy right now...";
             optionsBox.innerHTML = "";
             break;
@@ -23,10 +21,9 @@ function setSugarMode(mode) {
             optionsBox.innerHTML = "";
             break;
         case 'blogging':
-            avatarImg.src = "/assets/art/SUGAR_BLOGGING.png";
+            avatarImg.src = "/assets/art/Sugar-8-(Jul-11-2026).gif";
             dialogueBox.innerText = "Sugar is typing a new blog...";
             optionsBox.innerHTML = "";
-            // Auto-revert to default after 5 seconds
             setTimeout(() => setSugarMode('default'), 5000);
             break;
         default:
@@ -39,7 +36,7 @@ function setSugarMode(mode) {
 
 function renderDefaultOptions() {
     const optionsBox = document.getElementById("options-box");
-    optionsBox.innerHTML = ""; // Clear existing
+    optionsBox.innerHTML = "";
     const choices = ["How are you?", "What's new?", "Goodbye!"];
     
     choices.forEach(text => {
@@ -54,11 +51,10 @@ function renderDefaultOptions() {
 async function loadSiteData() {
     try {
         const res = await fetch('https://raw.githubusercontent.com/SugarHyou/sugar0verdosed/main/output/journal.json', {
-    cache: 'no-store' // Tells the browser to always fetch from the server
+    cache: 'no-store'
 });
 const data = await res.json();
         
-        // Target specific inner elements
         const dateContainer = document.getElementById('blog-date');
         const contentContainer = document.getElementById('blog-body');
         
@@ -70,7 +66,7 @@ const data = await res.json();
                 dateContainer.innerText = latestPost.date;
                 contentContainer.innerText = latestPost.content;
                 
-                setTimeout(() => contentContainer.classList.remove('blog-update-anim'), 600);
+                setTimeout(() => contentContainer.classList.remove('blog-update-anim'), 5000);
             }
 
             const lastSeenPostDate = localStorage.getItem('last_seen_post_date');
@@ -223,7 +219,6 @@ function switchAboutTab(tabId) {
     clickedBtn.style.opacity = "1";
 }
 
-// Listen for changes from other tabs/pages
 window.addEventListener('storage', (event) => {
     if (event.key === 'sugar_mode_request') {
         const newMode = event.newValue;
@@ -234,7 +229,6 @@ window.addEventListener('storage', (event) => {
     }
 });
 
-// Also check the mode immediately when the page loads
 window.addEventListener('DOMContentLoaded', () => {
     const savedMode = localStorage.getItem('sugar_mode_request') || 'default';
     setSugarMode(savedMode);
@@ -243,7 +237,6 @@ window.addEventListener('DOMContentLoaded', () => {
     loadSiteData();
 });
 
-// Initialize the audio object globally
 const openSound = new Audio('/assets/audio/ui/Maximize.wav');
 
 function playOpen() {
@@ -252,7 +245,6 @@ function playOpen() {
 }
 
 function handleSugarClick() {
-    // Determine what happens when the avatar is clicked
     if (sugarMode === 'default') {
         const dialogueBox = document.getElementById("dialogue-box");
         dialogueBox.innerText = "Stop poking me!";
@@ -279,34 +271,22 @@ async function updateUIStats() {
         if (data.currentStats) {
             const stats = data.currentStats;
 
-            // Update Stress
             document.getElementById('meter-stress').style.width = stats.stress + '%';
             document.getElementById('txt-stress').innerText = stats.stress + '%';
 
-            // Update Affection
             document.getElementById('meter-affection').style.width = stats.affection + '%';
             document.getElementById('txt-affection').innerText = stats.affection + '%';
-            
-            // Note: If you add darkness to the chat UI later, add it here too:
-            // document.getElementById('meter-darkness').style.width = stats.darkness + '%';
         }
     } catch (error) {
         console.error("Failed to sync stats:", error);
     }
 }
 
-// Run this when the page loads to ensure stats are current
 window.addEventListener('load', () => {
     updateUIStats();
 });
 
-// --- CALENDAR ENGINE ---
 let date = new Date();
-
-
-// ==========================================
-// CALENDAR & HOLIDAYS SYSTEM (REMIXED)
-// ==========================================
 
 const characterEvents = {
     "4-25": ["SugarHyou's Neocities Anniversary! ✨"],
@@ -339,16 +319,22 @@ const characterEvents = {
     "2026-7-4": ["Harajuku Day Swap Meet", "Anime Expo"],
     "2026-7-5": ["Anime Expo"],
     "2026-7-11": ["Spirit of Japan Festival! ✨"],
-    "2026-7-12": ["Spirit of Japan Festival"],
+    "2026-7-12": ["Spirit of Japan Festival! ✨"],
+    "2026-7-15": ["New Patient Intake"],
+    "2026-7-18": ["Santa Ana Flea Market"],
+    "2026-7-20": ["Counseling"],
+    "2026-7-21": ["Counseling"],
+    "2026-8-7": ["Drop"],
     "2026-8-15": ["Sonic Boost"],
     "2026-8-16": ["Sonic Boost"],
+    "2026-8-24": ["First day of School"],
     "2026-9-5": ["Anime San Diego! ✨"],
     "2026-9-6": ["Anime San Diego! ✨"],
 };
 
 let fetchedHolidays = {};
 let loadedHolidayYear = null;
-let calDate = new Date(); // Renamed to avoid conflicts
+let calDate = new Date();
 
 function fetchHolidays(year) {
     const url = `https://date.nager.at/api/v3/PublicHolidays/${year}/US`;
@@ -411,11 +397,9 @@ document.getElementById('nextMonth').onclick = () => { calDate.setMonth(calDate.
 fetchHolidays(calDate.getFullYear());
 
 function updateSystemInfo() {
-    // Fill basic stats
     document.getElementById('sys-browser').innerText = navigator.appName || "Web-Navigator";
     document.getElementById('sys-res').innerText = window.screen.width + "x" + window.screen.height;
 
-    // Start uptime counter
     let seconds = 0;
     setInterval(() => {
         seconds++;
@@ -426,7 +410,6 @@ function updateSystemInfo() {
     }, 1000);
 }
 
-// Ensure this runs once
 document.addEventListener('DOMContentLoaded', updateSystemInfo);
 
 function optimizeSystem() {
