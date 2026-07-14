@@ -9,7 +9,7 @@ function setSugarMode(mode) {
 
     if (!avatarImg || !dialogueBox) return;
 
-    switch(sugarMode) {
+    switch (sugarMode) {
         case 'busy':
             avatarImg.src = "/assets/art/Empty-(Jul-12-2026).png";
             dialogueBox.innerText = "Sugar is busy right now...";
@@ -26,6 +26,11 @@ function setSugarMode(mode) {
             optionsBox.innerHTML = "";
             setTimeout(() => setSugarMode('default'), 5000);
             break;
+        case 'sleep':
+            avatarImg.src = "/assets/art/Sugar-9-(Jul-12-2026).gif";
+            dialogueBox.innerText = "Sugar is sleeping... Zzz...";
+            optionsBox.innerHTML = "";
+            break;
         default:
             avatarImg.src = "/assets/art/Sugar-(Jul-3-2026).gif";
             dialogueBox.innerText = "So, what's up?";
@@ -38,7 +43,7 @@ function renderDefaultOptions() {
     const optionsBox = document.getElementById("options-box");
     optionsBox.innerHTML = "";
     const choices = ["How are you?", "What's new?", "Goodbye!"];
-    
+
     choices.forEach(text => {
         const btn = document.createElement("button");
         btn.className = "dialogue-choice";
@@ -54,21 +59,21 @@ async function loadSiteData() {
             cache: 'no-store'
         });
         const data = await res.json();
-        
+
         const dateEl = document.getElementById('blog-date');
         const titleEl = document.getElementById('blog-title');
         const contentEl = document.getElementById('blog-body');
-        
+
         if (contentEl && data.posts && data.posts.length > 0) {
             const latestPost = data.posts[0];
 
             if (contentEl.innerText !== latestPost.content) {
                 contentEl.classList.add('blog-update-anim');
-                
+
                 dateEl.innerText = latestPost.date;
                 titleEl.innerText = latestPost.title;
                 contentEl.innerText = latestPost.content;
-                
+
                 setTimeout(() => contentEl.classList.remove('blog-update-anim'), 5000);
             }
         }
@@ -78,7 +83,15 @@ async function loadSiteData() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    setSugarMode('default');
+    checkSleepStatus();
+
+    if (sugarMode !== 'sleep') {
+        setSugarMode('default');
+    }
+
+    setInterval(checkSleepStatus, 60000);
+
+    makeWindowsDraggable();
     loadSiteData();
     makeWindowsDraggable();
 });
@@ -229,7 +242,7 @@ window.addEventListener('storage', (event) => {
 window.addEventListener('DOMContentLoaded', () => {
     const savedMode = localStorage.getItem('sugar_mode_request') || 'default';
     setSugarMode(savedMode);
-    
+
     makeWindowsDraggable();
     loadSiteData();
 });
@@ -254,7 +267,7 @@ function triggerBlogAnimation() {
     if (chatWin) {
         chatWin.classList.remove('hidden');
         setSugarMode('blogging');
-        playOpen(); 
+        playOpen();
     }
 }
 
@@ -287,7 +300,7 @@ const characterEvents = {
     "4-25": ["SugarHyou's Neocities Anniversary! ✨"],
     "10-14": ["SugarHyou's Birthday! ✨"],
     "2026-5-2": ["One4AllTeam Cosplay Meetup"],
-    "2026-5-15": ["Comic-Con Revolution Early Badge Pickup"],    
+    "2026-5-15": ["Comic-Con Revolution Early Badge Pickup"],
     "2026-5-16": ["Comic-Con Revolution! ✨"],
     "2026-5-17": ["Comic-Con Revolution! ✨"],
     "2026-5-21": ["BN Appt"],
@@ -337,7 +350,7 @@ function fetchHolidays(year) {
         .then(response => response.json())
         .then(data => {
             data.forEach(holiday => {
-                const parts = holiday.date.split('-'); 
+                const parts = holiday.date.split('-');
                 const key = `${parseInt(parts[0], 10)}-${parseInt(parts[1], 10)}-${parseInt(parts[2], 10)}`;
                 fetchedHolidays[key] = holiday.localName;
             });
@@ -349,8 +362,8 @@ function fetchHolidays(year) {
 function renderCalendar() {
     const monthDisplay = document.getElementById('monthDisplay');
     const grid = document.getElementById('calendarGrid');
-    if (!grid || !monthDisplay) return; 
-    
+    if (!grid || !monthDisplay) return;
+
     grid.innerHTML = "";
     const year = calDate.getFullYear();
     const month = calDate.getMonth();
@@ -400,7 +413,7 @@ function updateSystemInfo() {
         seconds++;
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        document.getElementById('sys-uptime').innerText = 
+        document.getElementById('sys-uptime').innerText =
             (mins > 0 ? mins + "m " : "") + secs + "s";
     }, 1000);
 }
@@ -414,3 +427,24 @@ function optimizeSystem() {
         btn.innerText = "SYSTEM OPTIMIZED!";
     }, 1500);
 }
+
+function checkSleepStatus() {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 2 && hour < 9) {
+        setSugarMode('sleep');
+    } else if (sugarMode === 'sleep') {
+        setSugarMode('default');
+    }
+}
+
+const noteArea = document.getElementById('notepad-content');
+
+// Load saved text
+noteArea.value = localStorage.getItem('user_notes') || "Type your notes here...";
+
+// Save whenever they type
+noteArea.addEventListener('input', () => {
+    localStorage.setItem('user_notes', noteArea.value);
+});

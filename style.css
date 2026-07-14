@@ -73,11 +73,9 @@ hr {
 }
 
 .desktop {
-    justify-content: center;
-    gap: 15px;
+    gap: 10px;
     flex: 1;
     max-height: 100%;
-    z-index: 1;
 }
 
 #desktop-grid {
@@ -186,12 +184,10 @@ hr {
     border-color: limegreen;
 }
 
-/* MAIN COLUMN TAKES ALL REMAINING SPACE */
 .main-content {
-    flex: 0.9;
+    flex: 1;
 }
 
-/* --- BREAKCORE ELEMENTS --- */
 marquee {
     background: #ffff00;
     border: 2px solid #ff6600;
@@ -346,21 +342,17 @@ marquee {
     font-weight: bold;
     cursor: pointer;
     user-select: none;
-    /* Prevents text selection highlighting when double clicking */
 }
 
-/* Close is hot pink */
 .window-close {
     background: #ff0055;
 }
 
-/* Maximize is cyan to match the retro Sugar OS look! */
 .window-maximize {
     text-shadow: 1px -2px blue;
     background: red;
 }
 
-/* Optional: Add a little hover effect to make them feel interactive */
 .window-close:hover,
 .window-maximize:hover {
     background: cyan;
@@ -393,45 +385,40 @@ button:hover {
     border-color: limegreen !important;
 }
 
-/* Base text color for tracks */
 .playlist-track {
     padding: 4px;
-    border-bottom: 1px dashed cyan;
+    border-bottom: 1px solid cyan;
     cursor: pointer;
 }
 
-/* Loop rainbow colors sequentially */
-.playlist-track:nth-child(7n+1) {
-    color: #ff4136;
+.playlist-track:nth-child(6n+1) {
+    color: red;
+    border-color: red;
 }
 
-/* Red */
-.playlist-track:nth-child(7n+2) {
-    color: #ff851b;
+.playlist-track:nth-child(6n+2) {
+    color: orange;
+    border-color: orange;
 }
 
-/* Orange */
-.playlist-track:nth-child(7n+3) {
-    color: #ffdc00;
+.playlist-track:nth-child(6n+3) {
+    color: gold;
+    border-color: gold;
 }
 
-/* Yellow */
-.playlist-track:nth-child(7n+4) {
-    color: #2ecc40;
+.playlist-track:nth-child(6n+4) {
+    color: limegreen;
+    border-color: limegreen;
 }
 
-/* Green */
-.playlist-track:nth-child(7n+5) {
-    color: #0074d9;
+.playlist-track:nth-child(6n+5) {
+    color: dodgerblue;
+    border-color: dodgerblue;
 }
 
-/* Blue */
-.playlist-track:nth-child(7n+6) {
-    color: #b10dc9;
-}
-
-.playlist-track:nth-child(7n+7) {
-    color: #7401e0;
+.playlist-track:nth-child(6n+6) {
+    color: blueviolet;
+    border-color: blueviolet;
 }
 
 .playlist-track:hover {
@@ -443,6 +430,8 @@ button:hover {
 .app {
     align-items: center;
     text-decoration: none;
+    height: fit-content;
+    min-width: 96px;
 }
 
 .app:hover,
@@ -462,16 +451,13 @@ button:hover {
 }
 
 #sidebar {
-    padding: 0 10px;
-    width: 30%;
+    flex: 0.25;
     gap: 10px;
 }
 
 #player-track-title {
-    background: white;
-    padding: 6px;
+    padding: 5px;
     text-align: center;
-    font-size: 0.8rem;
     border: 2px inset cyan;
 }
 
@@ -483,13 +469,7 @@ button:hover {
     flex: 1;
     font-weight: bold;
     cursor: pointer;
-    padding: 4px;
-}
-
-#player-track {
-    background: #fff;
-    flex-direction: column;
-    border: 2px inset cyan;
+    padding: 5px;
 }
 
 .tab-btn {
@@ -502,9 +482,10 @@ button:hover {
 }
 
 #sugar {
+    z-index: -1;
     pointer-events: none;
     max-height: 100%;
-    margin: 0 -100px;
+    margin: 0 -150px;
 }
 
 blockquote {
