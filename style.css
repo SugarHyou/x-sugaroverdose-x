@@ -6,7 +6,13 @@
 
 :root {
     --white: white;
+    --black: black;
     --red: red;
+    --orange: orange;
+    --yellow: yellow;
+    --green: limegreen;
+    --blue: blue;
+    --purple: blueviolet;
     --rainbow-gradient: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, blueviolet);
     --rainbow-gradient-border: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, blueviolet) 1;
 }
@@ -24,7 +30,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Main';
-    color: blue;
+    color: var(--blue);
     gap: 15px;
     padding: 10px 0;
 }
@@ -34,7 +40,7 @@ img {
 }
 
 strong {
-    color: red;
+    color: var(--red);
 }
 
 hr {
@@ -104,7 +110,7 @@ hr {
     padding: 0 5px 5px;
     font-weight: bold;
     text-transform: uppercase;
-    text-shadow: 1px 1px blue;
+    text-shadow: 1px 1px var(--blue);
     justify-content: space-between;
     align-items: center;
     cursor: move;
@@ -113,8 +119,8 @@ hr {
 
 .window-close {
     background: #ff0055;
-    border: 2px solid white;
-    color: white;
+    border: 2px solid var(--white);
+    color: var(--white);
     width: 20px;
     height: 20px;
     font-size: 0.8rem;
@@ -166,13 +172,13 @@ hr {
 
 .dialogue-choice {
     background: lightcyan;
-    border: 2px solid blue;
+    border: 2px solid var(--blue);
     padding: 6px;
     text-align: left;
     font-size: 0.85rem;
     font-family: inherit;
     font-weight: bold;
-    color: blue;
+    color: var(--blue);
     cursor: pointer;
     word-break: break-word;
 }
@@ -180,7 +186,7 @@ hr {
 .dialogue-choice:hover {
     -webkit-text-fill-color: unset;
     background: #00ff66;
-    color: white !important;
+    color: var(--white) !important;
     border-color: limegreen;
 }
 
@@ -233,7 +239,7 @@ marquee {
 
 .button-link:hover {
     background: #ffcc00;
-    color: white;
+    color: var(--white);
 }
 
 /* --- HIGH VELOCITY ANIMATIONS --- */
@@ -294,7 +300,6 @@ marquee {
     flex: 1;
 }
 
-/* Labels styled exactly like the handwriting style in your drawing */
 .meter-label {
     text-align: center;
     font-weight: 900;
@@ -302,14 +307,11 @@ marquee {
     letter-spacing: 1px;
 }
 
-/* Outer hollow box from image_ad1be5.png */
 .pixel-bar-container {
     width: 100%;
     height: 24px;
     background: #ffffff;
-    /* White hollow background */
     border: 3px solid blue;
-    /* Sharp dark border instead of pure black */
     position: relative;
     padding: 1px;
 }
@@ -331,8 +333,8 @@ marquee {
 
 .window-close,
 .window-maximize {
-    border: 2px solid white;
-    color: white;
+    border: 2px solid var(--white);
+    color: var(--white);
     width: 20px;
     height: 20px;
     display: flex;
@@ -362,7 +364,7 @@ marquee {
     position: absolute;
     top: 15%;
     left: 15%;
-    outline: 2px solid white;
+    outline: 2px solid var(--white);
     min-height: 280px;
     box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.3);
     z-index: 100;
@@ -370,7 +372,7 @@ marquee {
 
 .window-popup-content {
     padding: 10px;
-    background: white;
+    background: var(--white);
 }
 
 button {
@@ -381,7 +383,7 @@ button {
 button:hover {
     border-style: inset !important;
     background: #00ff66 !important;
-    color: white !important;
+    color: var(--white) !important;
     border-color: limegreen !important;
 }
 
@@ -423,7 +425,7 @@ button:hover {
 
 .playlist-track:hover {
     background: #00ff66 !important;
-    color: white !important;
+    color: var(--white) !important;
     border-color: limegreen !important;
 }
 
@@ -437,7 +439,7 @@ button:hover {
 .app:hover,
 .app:hover span {
     background: #00ff66 !important;
-    color: white !important;
+    color: var(--white) !important;
     border-color: limegreen !important;
 }
 
@@ -474,7 +476,7 @@ button:hover {
 
 .tab-btn {
     background: red;
-    color: white;
+    color: var(--white);
     border: 2px inset #000;
     cursor: pointer;
     font-weight: bold;
@@ -493,7 +495,7 @@ blockquote {
     padding: 10px;
     background: #ffffcc;
     position: relative;
-    color: blue;
+    color: var(--blue);
     quotes: "\201C""\201D";
     opacity: 0.6;
 }
@@ -534,12 +536,12 @@ blockquote {
 
 #calendarGrid div.today {
     background: red;
-    color: white;
+    color: var(--white);
 }
 
 #calendarGrid div.event-day {
     background: hotpink;
-    color: white;
+    color: var(--white);
     font-weight: bold;
 }
 
@@ -547,7 +549,7 @@ blockquote {
 .has-tooltip {
     position: relative;
     cursor: help;
-    border-bottom: 2px dotted blue;
+    border-bottom: 2px dotted var(--blue);
 }
 
 /* The actual tooltip box */
@@ -558,10 +560,10 @@ blockquote {
     gap: 10px;
     visibility: hidden;
     width: 200px;
-    background-color: white;
+    background-color: var(--white);
     text-align: center;
     padding: 5px;
-    border: 2px solid blue;
+    border: 2px solid var(--blue);
     position: absolute;
     z-index: 999;
     bottom: 125%; 
@@ -571,6 +573,27 @@ blockquote {
 
 .has-tooltip:hover .tooltip-text {
     visibility: visible;
+}
+
+.andy-mode {
+    background-image: url('/assets/graphics/backgrounds/andy.jpg');
+    background-size: contain;
+    --white: #0d1632;
+    --blue: white;
+}
+
+.andy-mode .window {
+    background: red;
+    border-color: red;
+}
+
+.andy-mode .window-title {
+    background: #191f31 !important;
+    color: #fff !important;
+}
+
+.andy-mode #sugar {
+    visibility: hidden;
 }
 
 @media (max-width: 768px) {

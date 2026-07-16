@@ -31,11 +31,21 @@ function setSugarMode(mode) {
             dialogueBox.innerText = "Sugar is sleeping... Zzz...";
             optionsBox.innerHTML = "";
             break;
-        default:
-            avatarImg.src = "/assets/art/Sugar-(Jul-3-2026).gif";
-            dialogueBox.innerText = "So, what's up?";
-            renderDefaultOptions();
-            break;
+        // Add this inside setSugarMode(mode) switch statement
+case 'andy':
+    avatarImg.src = "/assets/art/Andy-(Jul-16-2026).png";
+    dialogueBox.innerText = "...";
+    optionsBox.innerHTML = "";
+    document.body.classList.add('andy-mode'); // Apply dark styling
+    break;
+
+// Update the 'default' case to ensure it removes the dark styling
+default:
+    avatarImg.src = "/assets/art/Sugar-(Jul-3-2026).gif";
+    dialogueBox.innerText = "So, what's up?";
+    document.body.classList.remove('andy-mode'); // Remove dark styling
+    renderDefaultOptions();
+    break;
     }
 }
 
